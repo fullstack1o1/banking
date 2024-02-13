@@ -3,6 +3,7 @@ package com.example.springdatajdbc.models;
 import lombok.Builder;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.MappedCollection;
 import org.springframework.data.relational.core.mapping.Table;
 
 import java.time.LocalDate;
@@ -21,5 +22,6 @@ public class Customer {
     private String fullName;
     private LocalDate dateOfBirth;
     private LocalDateTime createdAt;
-    //private Set<Account> accounts;
+    @MappedCollection(idColumn = "customer_id")
+    private Set<Account> accounts;
 }

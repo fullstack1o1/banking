@@ -3,8 +3,6 @@ package com.example.springdatajdbc.models;
 import lombok.Builder;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.annotation.Transient;
-import org.springframework.data.relational.core.mapping.MappedCollection;
 import org.springframework.data.relational.core.mapping.Table;
 
 import java.math.BigDecimal;
@@ -21,9 +19,6 @@ public class Account {
     private BigDecimal balance;
     private String accountType;
     private LocalDateTime createdAt;
-//    @MappedCollection(idColumn = "customer_id")
-//    @Transient
-//    private Customer customer;
 
 }
 
