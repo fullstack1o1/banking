@@ -36,6 +36,7 @@ public class E2eIntegrationTest {
 
     @Test
     void customerAccountRelationshipTest() {
+        //approach 1
         var customer = customerRepository.save(Customer.builder()
                 .username("testuser")
                 .password("testpassword")
@@ -43,26 +44,44 @@ public class E2eIntegrationTest {
                 .fullName("Test User")
                 .dateOfBirth(LocalDate.now())
                 .createdAt(LocalDateTime.now())
+                .accounts(Set.of(Account.builder()
+                        .accountNumber("1211")
+                        .balance(BigDecimal.valueOf(1000))
+                        .accountType("SAVINGS")
+                        .createdAt(LocalDateTime.now())
+                        .build(),
+                        Account.builder()
+                                .accountNumber("1212")
+                                .balance(BigDecimal.valueOf(2000))
+                                .accountType("SAVINGS")
+                                .createdAt(LocalDateTime.now())
+                                .build()))
                 .build());
+        /*
 
-        accountRepository.save(Account.builder()
+        //approach 2
+        var account1 = Account.builder()
                 .customerId(customer.getCustomerId())
                 .accountNumber("1211")
                 .balance(BigDecimal.valueOf(1000))
                 .accountType("SAVINGS")
                 .createdAt(LocalDateTime.now())
-                .build());
-        accountRepository.save(Account.builder()
+                .build();
+        var account2 = Account.builder()
                 .customerId(customer.getCustomerId())
                 .accountNumber("1212")
                 .balance(BigDecimal.valueOf(2000))
                 .accountType("SAVINGS")
                 .createdAt(LocalDateTime.now())
-                .build());
+                .build();
+        accountRepository.save(account1);
+        accountRepository.save(account2);
+        */
 
         System.out.println(customerRepository.findAll());
         System.out.println(accountRepository.findAll());
 
+        assertTrue(customerRepository.findById(customer.getCustomerId()).isPresent());
         assertThat(customerRepository.findAll()).size().isGreaterThan(0);
         assertThat(accountRepository.findAll()).size().isGreaterThan(0);
     }

@@ -1,5 +1,6 @@
 package com.example.springdatajdbc.models;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
@@ -11,6 +12,7 @@ import java.time.LocalDateTime;
 @Table("accounts")
 @Data
 @Builder
+@AllArgsConstructor
 public class Account {
     @Id
     private Long accountId;
