@@ -24,5 +24,9 @@ public class Customer {
     private LocalDateTime createdAt;
     @MappedCollection(idColumn = "customer_id")
     private Set<Account> accounts;
+    @MappedCollection(idColumn = "customer_id")
+    private Set<Beneficiary> beneficiaries;
+    @MappedCollection(idColumn = "customer_id")
+    private Session session;
 
 }

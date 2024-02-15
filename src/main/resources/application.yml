@@ -1,1 +1,6 @@
-
+#logging:
+#  level:
+#    org.springframework.jdbc: DEBUG
+spring:
+  application:
+    name: @project.artifactId@
