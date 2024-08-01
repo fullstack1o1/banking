@@ -21,6 +21,6 @@ public class Account {
     private BigDecimal balance;
     private String accountType;
     private LocalDateTime createdAt;
-
+    //Set<Transaction> transactions;
 }
 
