@@ -8,11 +8,11 @@
 		<version>3.2.2</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.example</groupId>
-	<artifactId>spring-data-jdbc</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<groupId>net.samitkumar</groupId>
+	<artifactId>banking</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
 	<name>spring-data-jdbc</name>
-	<description>Spring data JDBC</description>
+	<description>A banking soluation with Spring data JDBC</description>
 	<properties>
 		<java.version>21</java.version>
 	</properties>
