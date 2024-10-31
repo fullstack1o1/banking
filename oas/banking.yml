@@ -1,0 +1,312 @@
+openapi: 3.0.3
+info:
+  title: Banking API
+  version: 1.0.0
+  description: API for managing customers, accounts, transactions, and beneficiaries.
+
+paths:
+  /customers:
+    get:
+      summary: Get all customers
+      responses:
+        '200':
+          description: A list of customers
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Customer'
+    post:
+      summary: Create a new customer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerCreate'
+      responses:
+        '201':
+          description: Customer created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+
+  /customers/{customerId}:
+    get:
+      summary: Get a customer by ID
+      parameters:
+        - in: path
+          name: customerId
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Customer details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+    put:
+      summary: Update a customer by ID
+      parameters:
+        - in: path
+          name: customerId
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerUpdate'
+      responses:
+        '200':
+          description: Customer updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+    delete:
+      summary: Delete a customer by ID
+      parameters:
+        - in: path
+          name: customerId
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Customer deleted
+
+  /accounts:
+    get:
+      summary: Get all accounts
+      responses:
+        '200':
+          description: A list of accounts
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Account'
+    post:
+      summary: Create a new account
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccountCreate'
+      responses:
+        '201':
+          description: Account created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Account'
+
+  /transactions:
+    get:
+      summary: Get all transactions
+      responses:
+        '200':
+          description: A list of transactions
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Transaction'
+    post:
+      summary: Create a new transaction
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TransactionCreate'
+      responses:
+        '201':
+          description: Transaction created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Transaction'
+
+  /beneficiaries:
+    get:
+      summary: Get all beneficiaries
+      responses:
+        '200':
+          description: A list of beneficiaries
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Beneficiary'
+    post:
+      summary: Create a new beneficiary
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BeneficiaryCreate'
+      responses:
+        '201':
+          description: Beneficiary created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Beneficiary'
+
+components:
+  schemas:
+    Customer:
+      type: object
+      properties:
+        customer_id:
+          type: integer
+        username:
+          type: string
+        email:
+          type: string
+        full_name:
+          type: string
+        date_of_birth:
+          type: string
+          format: date
+        created_at:
+          type: string
+          format: date-time
+
+    CustomerCreate:
+      type: object
+      required:
+        - username
+        - password
+        - email
+        - full_name
+        - date_of_birth
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+        email:
+          type: string
+        full_name:
+          type: string
+        date_of_birth:
+          type: string
+          format: date
+
+    CustomerUpdate:
+      type: object
+      properties:
+        email:
+          type: string
+        full_name:
+          type: string
+
+    Account:
+      type: object
+      properties:
+        account_id:
+          type: integer
+        customer_id:
+          type: integer
+        account_number:
+          type: string
+        balance:
+          type: number
+          format: double
+        account_type:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+
+    AccountCreate:
+      type: object
+      required:
+        - customer_id
+        - account_number
+        - account_type
+      properties:
+        customer_id:
+          type: integer
+        account_number:
+          type: string
+        balance:
+          type: number
+          format: double
+          default: 0.0
+        account_type:
+          type: string
+
+    Transaction:
+      type: object
+      properties:
+        transaction_id:
+          type: integer
+        account_id:
+          type: integer
+        transaction_type:
+          type: string
+        amount:
+          type: number
+          format: double
+        transaction_date:
+          type: string
+          format: date-time
+
+    TransactionCreate:
+      type: object
+      required:
+        - account_id
+        - transaction_type
+        - amount
+      properties:
+        account_id:
+          type: integer
+        transaction_type:
+          type: string
+        amount:
+          type: number
+          format: double
+
+    Beneficiary:
+      type: object
+      properties:
+        beneficiary_id:
+          type: integer
+        customer_id:
+          type: integer
+        beneficiary_name:
+          type: string
+        account_number:
+          type: string
+        added_at:
+          type: string
+          format: date-time
+
+    BeneficiaryCreate:
+      type: object
+      required:
+        - customer_id
+        - beneficiary_name
+        - account_number
+      properties:
+        customer_id:
+          type: integer
+        beneficiary_name:
+          type: string
+        account_number:
+          type: string
